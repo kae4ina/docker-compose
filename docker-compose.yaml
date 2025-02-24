@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - whoami1
+      - whoami2
+      - whoami3
+    networks:
+      - default
+
+  whoami1:
+    image: traefik/whoami:v1.10.2
+    container_name: whoami1
+    expose:
+      - "19386"
+
+  whoami2:
+    image: traefik/whoami:v1.10.2
+    container_name: whoami2
+    expose:
+      - "19387"
+
+  whoami3:
+    image: traefik/whoami:v1.10.2
+    container_name: whoami3 
+    expose:
+      - "19388"
+
+
